@@ -17,7 +17,25 @@ class PropertyBag:
         return f"<PropertyBag: n={len(self._properties)}>"
 
     def get_method_title(self) -> str:
+        """Returns the method title."""
         return self.method_title
+
+    def get_method_description(self) -> str:
+        """Returns the method description."""
+        return self.method_description
+
+    def add_property(self, property: "Property") -> None:
+        """ Adds a property.
+        :param property: A property
+        :return:
+        """
+        self._properties[property.get_id()] = property
+
+    def has_property(self, id: str) -> bool:
+        return True if id in self._properties else False
+
+    def get_property(self, id: str) -> "Property":
+        return self._properties[id]
 
     @classmethod
     def from_xml(cls, xml_tree) -> "PropertyBag":
@@ -56,19 +74,6 @@ class PropertyBag:
                         properties.add_property(property)
 
         return properties
-
-    def add_property(self, property: "Property") -> None:
-        """ Adds a property.
-        :param property: A property
-        :return:
-        """
-        self._properties[property.get_id()] = property
-
-    def has_property(self, id: str) -> bool:
-        return True if id in self._properties else False
-
-    def get_property(self, id: str) -> "Property":
-        return self._properties[id]
 
 
 class Property:

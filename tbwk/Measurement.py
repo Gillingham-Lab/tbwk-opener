@@ -76,6 +76,12 @@ A measurement block (151) contains 3 nested blocks. The blocks content start at 
 
 
 class Measurement:
+    """
+    Represents a single measurement on a NanoDrop 2000.
+
+    Use the methods of this object for the most often used parameters, or
+    access the PropertyBag to access the tabular values as set by the measurement method.
+    """
     title: str = None
 
     x_values: np.ndarray = None
@@ -123,6 +129,18 @@ class Measurement:
         Returns the given sample name (title) of the measurement
         """
         return self.title
+
+    def get_method_title(self) -> str:
+        """
+        Returns the title of the method
+        """
+        return self.properties.get_method_title()
+
+    def get_method_description(self) -> str:
+        """
+        Returns the description of the method.
+        """
+        return self.properties.get_method_description()
 
     def get_x(self) -> np.ndarray:
         """
