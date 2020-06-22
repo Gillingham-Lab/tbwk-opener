@@ -159,7 +159,7 @@ class Measurement:
             return result.item()
 
         # If this does not work, we need to intrapolate
-        f = interp1d(self.x_values, self.y_values)
+        f = interp1d(self.x_values, self.y_values, kind="cubic")
 
         return f(wavelength)
 
