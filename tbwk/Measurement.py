@@ -118,31 +118,52 @@ class Measurement:
     def __repr__(self) -> str:
         return f"<Measurement[{self.title}], {self.properties.get_method_title()}>"
 
-    @classmethod
-    def from_block(cls, block):
-        assert block.type == Block.Measurement
+    def get_title(self) -> str:
+        """
+        Returns the given sample name (title) of the measurement
+        """
+        return self.title
 
-        # Create a property bag
-        properties = PropertyBag.from_xml(block.parsed_content[2].parsed_content)
+    def get_x(self) -> np.ndarray:
+        """
+        Returns x values as a numpy array, float64
 
-        # Create new measurement classes
-        ret = cls(
-            title=block.parsed_content[0].parsed_content[1].decode("utf8"),
-            x_values=block.parsed_content[1].parsed_content[2].parsed_content[2].parsed_content[3],
-            x_label=block.parsed_content[1].parsed_content[2].parsed_content[2].parsed_content[0].decode("utf8"),
-            y_values=block.parsed_content[1].parsed_content[2].parsed_content[1].parsed_content[3],
-            y_label=block.parsed_content[1].parsed_content[2].parsed_content[1].parsed_content[0].decode("utf8"),
-            properties=properties,
-        )
+        Should usually contain the measured wavelengths.
+        """
+        return self.x_values
 
-        return ret
+    def get_x_label(self) -> str:
+        """
+        Returns the saved label for the x-axis.
+        """
+        return self.x_label
+
+    def get_y(self) -> np.ndarray:
+        """
+        Returns y values as a numpy array, float64
+
+        Should usually contain the measured absorption.
+        :return:
+        """
+        return self.y_values
+
+    def get_y_label(self) -> str:
+        """
+        Returns the saved label for the y-axis.
+        """
+        return self.y_label
+
+    def get_property_bag(self) -> PropertyBag:
+        """
+        Returns the property bag.
+        """
+        return self.properties
 
     def get_absorption_at(self, wavelength: float, from_spectrum=False) -> float:
         """ Returns the absorption at a given wavelength.
 
         If from_spectrum is set to true, the value comes always from the spectrum. If set to False, the measured
         values are tried first. """
-        value = None
 
         if from_spectrum is False:
             wavelength_id = f"A{wavelength:.0f}"
@@ -162,5 +183,24 @@ class Measurement:
         f = interp1d(self.x_values, self.y_values, kind="cubic")
 
         return f(wavelength)
+
+    @classmethod
+    def from_block(cls, block):
+        assert block.type == Block.Measurement
+
+        # Create a property bag
+        properties = PropertyBag.from_xml(block.parsed_content[2].parsed_content)
+
+        # Create new measurement classes
+        ret = cls(
+            title=block.parsed_content[0].parsed_content[1].decode("utf8"),
+            x_values=block.parsed_content[1].parsed_content[2].parsed_content[2].parsed_content[3],
+            x_label=block.parsed_content[1].parsed_content[2].parsed_content[2].parsed_content[0].decode("utf8"),
+            y_values=block.parsed_content[1].parsed_content[2].parsed_content[1].parsed_content[3],
+            y_label=block.parsed_content[1].parsed_content[2].parsed_content[1].parsed_content[0].decode("utf8"),
+            properties=properties,
+        )
+
+        return ret
 
 
