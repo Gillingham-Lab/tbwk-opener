@@ -1,9 +1,10 @@
+from typing import List
 from tbwk.RawOpener import unpack, Block
 from tbwk.Measurement import Measurement
 
 
 class Worksheet:
-    measurements = None
+    measurements: List[Measurement] = None
 
     def __init__(self):
         self.measurements = []

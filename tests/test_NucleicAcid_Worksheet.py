@@ -52,8 +52,24 @@ class NucleicAcidWorksheetTestCase(unittest.TestCase):
             worksheet = self.worksheets[i]
 
             for j in range(len(worksheet)):
-                x_actual = worksheet.measurements[i].x_label
-                y_actual = worksheet.measurements[i].y_label
+                x_actual = worksheet.measurements[j].x_label
+                y_actual = worksheet.measurements[j].y_label
 
                 self.assertEqual(x_should, x_actual, msg="X-Axis label not matching.")
                 self.assertEqual(y_should, y_actual, msg="Y-Axis label not matching.")
+
+    def test_absorption_at_wavelength(self):
+        measurement_values = [
+            [0.08149, 0.00837, 28.260080, 28.09851, 17.41371, 0.26109, 15.60493, 0.12195, 20.41074, 0.15920,
+             18.39145, 0.024534, 0.01116],
+            [0.87528, 0.00378, 7.41706, 6.30852, 0.047512, 0.03308],
+        ]
+
+        for i in range(len(self.worksheets)):
+            worksheet = self.worksheets[i]
+
+            for j in range(len(worksheet)):
+                actual = worksheet.measurements[j].get_absorption_at(260)
+                should = measurement_values[i][j]
+
+                self.assertAlmostEqual(actual, should, 4)
