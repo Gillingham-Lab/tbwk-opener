@@ -1,5 +1,4 @@
 # tbwk-opener
-
 A python package to open and read tbwk files generated from the NanoDrop 2000 software.
 
 ## Features
@@ -9,6 +8,8 @@ This library has so far only been tested with Nucleic Acid worksheets.
 - Successfully reads y- and x-values of a recorded spectrum
 - Also reports on tabled data contained in the worksheet (such as A260 for nucleic acids, 
 or direct nucleic concentration as chosen by the method)
+
+A protein worksheet (no example provided) showed similar behaviour and should work without any issues.
 
 ## Usage
 
