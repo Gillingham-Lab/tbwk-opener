@@ -11,6 +11,14 @@ or direct nucleic concentration as chosen by the method)
 
 A protein worksheet (no example provided) showed similar behaviour and should work without any issues.
 
+## Installation
+
+Make sure you've installed numpy and scipy before attempting to install tbwk-opener from pip, then use:
+
+```shell script
+pip install tbwk-opener
+```
+
 ## Usage
 
 Get all measurements from a worksheet and report on concentration using the absorption at 260 nm:
