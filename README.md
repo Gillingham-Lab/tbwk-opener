@@ -28,23 +28,23 @@ from tbwk import Worksheet
 
 worksheet = Worksheet.import_worksheet("examples/nanodrop-dna-measurements-01.twbk")
 
-factor = (2.05 + 2.30)/2 # uM per absorption unit
+factor = (2.05 + 2.30)/2 # μM per absorption unit
 for measurement in worksheet:
-    print(f"{measurement.title:20}{measurement.get_absorption_at(260)*factor:.2f} uM")
+    print(f"{measurement.title:20}{measurement.get_absorption_at(260)*factor:.2f} μM")
 ```
 
 ```text
-wash                0.18 uM
-blank               0.02 uM
-BSD01               61.47 uM
-BSD01               61.11 uM
-BSD01 cntl A1       37.87 uM
-wash                0.57 uM
-BSD01 cntl A2       33.94 uM
-wash                0.27 uM
-BSD01 cntl A3       44.39 uM
-BSD01 cntl A3       0.35 uM
-BSD01 cntl A4       40.00 uM
-wash                0.05 uM
-wash                0.02 uM
+wash                0.18 μM
+blank               0.02 μM
+BSD01               61.47 μM
+BSD01               61.11 μM
+BSD01 cntl A1       37.87 μM
+wash                0.57 μM
+BSD01 cntl A2       33.94 μM
+wash                0.27 μM
+BSD01 cntl A3       44.39 μM
+BSD01 cntl A3       0.35 μM
+BSD01 cntl A4       40.00 μM
+wash                0.05 μM
+wash                0.02 μM
 ```
