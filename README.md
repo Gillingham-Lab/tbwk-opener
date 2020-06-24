@@ -1,6 +1,8 @@
 # tbwk-opener
 A python package to open and read tbwk files generated from the NanoDrop 2000 software.
 
+Testing: ![Python application](https://github.com/Gillingham-Lab/tbwk-opener/workflows/Python%20application/badge.svg)
+
 ## Features
 This library has so far only been tested with Nucleic Acid worksheets.
 
