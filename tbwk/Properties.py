@@ -155,7 +155,7 @@ class Value:
                  digits: int,
                  value: float,
                  unit: Optional[str] = None,
-                 factor: Optional[int] = None
+                 factor: Optional[float] = None
                  ):
         self._title = title
         self._digits = digits
@@ -163,8 +163,30 @@ class Value:
         self._unit = unit
         self._factor = factor
 
-    def get_value(self):
+    def get_title(self) -> str:
+        return self._title
+
+    def get_digits(self) -> int:
+        return self._digits
+
+    def get_value(self) -> float:
         return self._value
+
+    def has_unit(self) -> bool:
+        return self._unit is not None
+
+    def get_unit(self) -> Optional[str]:
+        return self._unit
+
+    def get_factor(self) -> Optional[float]:
+        return self._factor
+
+    def get_formatted_value(self) -> str:
+        """ Returns the value with the set number of digits and, if given, the unit. """
+        if self.has_unit():
+            return f"{self._value:.{self._digits}f} {self._unit}"
+        else:
+            return f"{self._value:.{self._digits}f}"
 
     def __repr__(self):
         return f"<Value[{self._title}]: {self._value:.{self._digits}f}>"
