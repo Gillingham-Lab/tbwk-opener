@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.interpolate import interp1d
+from datetime import datetime
 
 from tbwk.RawOpener import Block
 from tbwk.Properties import PropertyBag
@@ -98,6 +99,7 @@ class Measurement:
                  x_label: str,
                  y_values: np.ndarray,
                  y_label: str,
+                 time: datetime,
                  properties: PropertyBag = None,
                  ):
         """
@@ -118,6 +120,8 @@ class Measurement:
 
         self.y_values = y_values
         self.y_label = y_label
+
+        self.time = time
 
         self.properties = properties
 
@@ -171,6 +175,12 @@ class Measurement:
         """
         return self.y_label
 
+    def get_time(self) -> datetime:
+        """
+        Returns the measurement time
+        """
+        return self.time
+
     def get_property_bag(self) -> PropertyBag:
         """
         Returns the property bag.
@@ -216,6 +226,7 @@ class Measurement:
             x_label=block.parsed_content[1].parsed_content[2].parsed_content[2].parsed_content[0].decode("utf8"),
             y_values=block.parsed_content[1].parsed_content[2].parsed_content[1].parsed_content[3],
             y_label=block.parsed_content[1].parsed_content[2].parsed_content[1].parsed_content[0].decode("utf8"),
+            time=block.parsed_content[1].parsed_content[2].parsed_content[0].parsed_content[3],
             properties=properties,
         )
 

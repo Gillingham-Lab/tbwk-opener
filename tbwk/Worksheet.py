@@ -1,6 +1,8 @@
-from typing import List
+import io
+from typing import List, Union
 from tbwk.RawOpener import unpack, Block
 from tbwk.Measurement import Measurement
+import os
 
 
 class Worksheet:
@@ -27,7 +29,7 @@ class Worksheet:
         self.measurements.append(measurement)
 
 
-def import_worksheet(filename: str) -> Worksheet:
+def import_worksheet(filename: Union[str, io.BytesIO]) -> Worksheet:
     """
     imports a given filename and creates a tbwk.Worksheet object.
 
@@ -35,8 +37,13 @@ def import_worksheet(filename: str) -> Worksheet:
     :return:
     """
 
-    with open(filename, "rb") as fh:
-        content = fh.read()
+    if type(filename) == str and os.path.exists(filename):
+        with open(filename, "rb") as fh:
+            content = fh.read()
+    elif type(filename) == io.BytesIO:
+        content = filename.read()
+    else:
+        content = filename
 
     if content is None:
         raise FileNotFoundError(f"File {filename} was not found.")
